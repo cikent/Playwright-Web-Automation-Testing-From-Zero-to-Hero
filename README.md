@@ -4,7 +4,7 @@
 * Creator: Artem Bondar
 * Source: [Github bondar-artem / pw-practice-app](https://github.com/bondar-artem/pw-practice-app)
 
-## Setup
+## Test App Setup via 'pw-practice-app' folder
 
 1. Select the Source to navigate to the GitHub repo containing the project
 
