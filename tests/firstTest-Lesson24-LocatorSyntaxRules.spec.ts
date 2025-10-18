@@ -9,10 +9,10 @@ test.beforeEach(async ({page}) => {
 
 test('Locator Syntax Rules', async ({page}) => {
     //by Tag name
-    page.locator('input')
+    await page.locator('input').first().click()
 
     //by ID
-    await page.locator('#inputEmail1').click()
+    page.locator('#inputEmail1')
 
     //by Class name
     page.locator('.shape-rectangle')
