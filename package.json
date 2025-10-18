@@ -1,0 +1,23 @@
+{
+  "name": "playwright-web-automation-testing-from-zero-to-hero",
+  "version": "1.0.0",
+  "description": "* Repo for Course: Playwright: Web Automation Testing From Zero to Hero\r * Creator: Artem Bondar\r * Source: [Github bondar-artem / pw-practice-app](https://github.com/bondar-artem/pw-practice-app)",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cikent/Playwright-Web-Automation-Testing-From-Zero-to-Hero.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/cikent/Playwright-Web-Automation-Testing-From-Zero-to-Hero/issues"
+  },
+  "homepage": "https://github.com/cikent/Playwright-Web-Automation-Testing-From-Zero-to-Hero#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.8.1"
+  }
+}
