@@ -36,7 +36,7 @@ test('Locator Syntax Rules', async ({page}) => {
     page.locator(':text-is("Using the Grid")')
 })
 
-test('User Facing Locators', async ({page}) => {0
+test('User Facing Locators', async ({page}) => {
     await page.getByRole('textbox', {name: "Email"}).first().click()
     await page.getByRole('button', {name: "Sign in"}).first().click()
 
@@ -51,4 +51,11 @@ test('User Facing Locators', async ({page}) => {0
     await page.getByTitle('IoT Dashboard').click()
 })
 
-test('Locating Child Elements', async ({page}) => {})
+test('Locating Child Elements', async ({page}) => {
+    await page.locator('nb-card nb-radio :text-is("Option 1")').click()                         //Example 1, Use concise Locator method
+    await page.locator('nb-card').locator('nb-radio').locator(':text-is("Option 2")').click()   //Example 2, Use verbose/distinct Locator methods
+
+    await page.locator('nb-card').getByRole('button', {name: "Sign in"}).first().click()        //Example 3, Use Locator with getBy methods
+
+    await page.locator('nb-card').nth(3).getByRole('button').click()                            //Example 4, Use Locator with nth() method; Index starts from 0
+})
