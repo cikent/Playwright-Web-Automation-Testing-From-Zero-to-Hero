@@ -74,4 +74,8 @@ test('Locating Parent Elements', async ({page}) => {
     await page.locator('nb-card').filter({ hasText: "Basic form" }).getByRole('textbox', { name: "Email" }).click()
     //Example 4: Locate parent element with Filter by child Locator and child element by Role and Name
     await page.locator('nb-card').filter({ has: page.locator('.status-danger')}).getByRole('textbox', { name: "Password" }).click()
+    //Example 5: Locate parent element with Filters for Checkbox & Sign in text then child element by Role and Name 
+    await page.locator('nb-card').filter({ has: page.locator('nb-checkbox') }).filter({ hasText: "Sign in" }).getByRole('textbox', { name: "Email" }).click()
+    //Example 6: Locate parent element with Text Has then XPath up to Parent ('..') then child element by Role and Name
+    await page.locator(':text-is("Using the Grid")').locator('..').getByRole('textbox', { name: "Email" }).click()
 })
