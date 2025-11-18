@@ -98,3 +98,10 @@ test('Reusing the Locators', async ({page}) => {
     //Assertion to verify email field value
     await expect(emailField).toHaveValue('test@test.com')
 })
+
+test('Extracting Values', async ({page}) => {
+    //Single Test Value
+    const basicForm = page.locator('nb-card').filter({ hasText: "Basic form" })
+    const buttonText = await basicForm.locator('button').textContent()
+    expect(buttonText).toEqual('Submit')
+})
