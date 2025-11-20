@@ -104,4 +104,7 @@ test('Extracting Values', async ({page}) => {
     const basicForm = page.locator('nb-card').filter({ hasText: "Basic form" })
     const buttonText = await basicForm.locator('button').textContent()
     expect(buttonText).toEqual('Submit')
+
+    //All Text Values
+    const allRadioButtonsLabels await page.locator('nb-radio').allTextContents()
 })
