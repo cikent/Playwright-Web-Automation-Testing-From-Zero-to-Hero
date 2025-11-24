@@ -106,5 +106,16 @@ test('Extracting Values', async ({page}) => {
     expect(buttonText).toEqual('Submit')
 
     //All Text Values
-    const allRadioButtonsLabels await page.locator('nb-radio').allTextContents()
+    const allRadioButtonsLabels = await page.locator('nb-radio').allTextContents()
+    expect(allRadioButtonsLabels).toContain("Option 1")
+
+    //Input Value
+    const emailField = basicForm.getByRole('textbox', { name: "Email" })
+    await emailField.fill('test@test.com')
+    const emailValue = await emailField.inputValue()
+    expect(emailValue).toEqual('test@test.com')
+
+    //Attribute Value
+    const placeholderValue = await emailField.getAttribute('placeholder')
+    expect(placeholderValue).toEqual('Email')
 })
