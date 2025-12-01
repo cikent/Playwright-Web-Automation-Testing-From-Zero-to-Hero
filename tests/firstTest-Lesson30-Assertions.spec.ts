@@ -136,4 +136,4 @@ test('Assertions', async ({page}) => {
     //Soft Assertion will NOT stop the test execution upon failure
     await expect.soft(basicFormButton).toHaveText('Submit5')
     await basicFormButton.click()
-})
+}) 
