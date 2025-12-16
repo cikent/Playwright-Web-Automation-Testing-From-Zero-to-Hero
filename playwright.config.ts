@@ -12,14 +12,11 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  use: {
-    // globalTimeout: 300000,       // Global timeout for the whole test suite; no default
-    // timeout: 10000,              // Test timeout for each test; default is 30 seconds / 30000 ms
-    // actionTimeout: 0,            // Maximum time each action, Ex. click(), fill(), textContent(), etc.; default is 0
-    // navigationTimeout: 30000,    // Maximum time for navigation methods; default is 0 seconds
-  },
+  timeout: 10000,                   // Test timeout for each test; default is 30 seconds / 30000 ms
+  globalTimeout: 600000,            // Global timeout for the whole test suite; no default
+  
   expect: {
-    timeout: 5000,                  // Maximum time expect() should wait for the condition to be met; default is 5000 ms
+    timeout: 2000,                  // Maximum time expect() should wait for the condition to be met; default is 5000 ms
   },
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -39,6 +36,8 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    //actionTimeout: 5000,              // Maximum time each action, Ex. click(), fill(), textContent(), etc.; default is 0
+    navigationTimeout: 5000,            // Maximum time for navigation methods; default is 0 seconds
   },
 
   /* Configure projects for major browsers */
