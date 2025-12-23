@@ -25,5 +25,12 @@ test.describe('Form Layouts page', () => {
         await expect(usingTheGridEmailInput).toHaveValue('test2@test.com')
     })
 
+    test('Radio Buttons', async ({ page }) => {
+        const usingTheGridForm = page.locator('nb-card', { hasText: "Using the Grid" })
+
+        // await usingTheGridForm.getByLabel('Option 1').check({force: true})          //Force check even if element is not visible/interactive
+        await usingTheGridForm.getByRole('radio', { name: 'Option 1' }).check({force: true})
+    })
+
 
 })
