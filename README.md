@@ -17,7 +17,6 @@
     ````markdown
     ```shell
     git submodule add <repository_url> <path/to/submodule>
-
     ```
     ````
 
