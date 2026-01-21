@@ -13,20 +13,16 @@
 3. Via the Terminal, navigate to the desired directory where you would like to host the pw-practice-app as a Submodule
 
 4. Via the Terminal, input the following command:
-    
-    ````markdown
+
     ```shell
     git submodule add <repository_url> <path/to/submodule>
     ```
-    ````
 
-    Local Example:
+    * My local Example:
 
-    ````markdown
-    ```shell
-    git submodule add https://github.com/bondar-artem/pw-practice-app.git "C:\Development\Playwright-Projects\Playwright-Web-Automation-Testing-From-Zero-to-Hero"
-    ```
-    ````
+        ```shell
+        git submodule add https://github.com/bondar-artem/pw-practice-app.git "C:\Development\Playwright-Projects\Playwright-Web-Automation-Testing-From-Zero-to-Hero"
+        ```
 
 5. Via the Terminal, navigate into the directory created for the pw-practice-app:
 
@@ -55,4 +51,3 @@
     ```shell
     http://localhost:4200/
     ```
-
