@@ -21,6 +21,8 @@
     ```
     ````
 
+    Local Example:
+
     ````markdown
     ```shell
     git submodule add https://github.com/bondar-artem/pw-practice-app.git "C:\Development\Playwright-Projects\Playwright-Web-Automation-Testing-From-Zero-to-Hero"
