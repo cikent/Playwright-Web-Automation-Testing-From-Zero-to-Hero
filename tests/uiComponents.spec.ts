@@ -56,5 +56,9 @@ test('Checkboxes', async ({ page }) => {
         await box.uncheck({ force: true })                                  //Uncheck each checkbox; enable force: true since element is not visible/interactive  
         expect(await box.isChecked()).toBeFalsy()                          //Assert that each checkbox is unchecked 
     }  
+})
 
+test ('Lists and Dropdowns', async ({ page }) => {
+    const dropDownMenu = page.locator('ngx-header nb-select')
+    await dropDownMenu.click()
 })

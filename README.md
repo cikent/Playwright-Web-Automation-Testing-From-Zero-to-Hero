@@ -6,17 +6,26 @@
 
 ## Test App Setup via 'pw-practice-app' folder
 
-1. Select the Source to navigate to the GitHub repo containing the project
+1. Select the Source hyperlink to navigate to the GitHub repo containing the project by Artem Bondar!
 
 2. Once on the pw-practice-app GitHub root page, select the "<> Code" drop down menu and copy the HTTPS url to your clipboard
 
-3. Via the Terminal, navigate to the desired directory where you would like to host the pw-practice-app
+3. Via the Terminal, navigate to the desired directory where you would like to host the pw-practice-app as a Submodule
 
 4. Via the Terminal, input the following command:
-
+    
+    ````markdown
     ```shell
-    git clone https://github.com/bondar-artem/pw-practice-app.git
+    git submodule add <repository_url> <path/to/submodule>
+
     ```
+    ````
+
+    ````markdown
+    ```shell
+    git submodule add https://github.com/bondar-artem/pw-practice-app.git "C:\Development\Playwright-Projects\Playwright-Web-Automation-Testing-From-Zero-to-Hero"
+    ```
+    ````
 
 5. Via the Terminal, navigate into the directory created for the pw-practice-app:
 
