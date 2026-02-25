@@ -61,4 +61,29 @@ test('Checkboxes', async ({ page }) => {
 test ('Lists and Dropdowns', async ({ page }) => {
     const dropDownMenu = page.locator('ngx-header nb-select')
     await dropDownMenu.click()
+
+    page.getByRole('list')                  //When the List has a UL tag
+    page.getByRole('listitem')              //When the List has a LI tag
+
+    //const optionList = page.getByRole('list').locator('nb-option')    //Option 1: Get the List element then the nb-option within it
+    const optionList = page.locator('nb-option-list nb-option')         //Option 2: Get the Parent and Child element
+    await expect(optionList).toHaveText(["Light", "Dark", "Cosmic", "Corporate"])     //Assert that the List has the expected text values
+    await optionList.filter({ hasText: "Cosmic" }).click()        //Filter the List to get the option with the text value 'Cosmic' and click it
+    const header = page.locator('nb-layout-header')        //Get the Header element
+    await expect(header).toHaveCSS('background-color', 'rgb(50, 50, 89)')   //Assert the Header element has the expected background color
+
+    const colors: Record<string, string> = { //Create an Object and define the Types for the key and value using Record<string, string>
+        "Light":     'rgb(255, 255, 255)',
+        "Dark":      'rgb(34, 43, 69)',
+        "Cosmic":    'rgb(50, 50, 89)',
+        "Corporate": 'rgb(255, 255, 255)',
+    }
+
+    await dropDownMenu.click()        //Click the dropdown menu to reopen it for the next iteration
+    for(const color in colors){                                    
+        await optionList.filter({ hasText: color}).click()        //Iterate through the Object to filter the List and click each theme option
+        await expect(header).toHaveCSS('background-color', colors[color])
+        if(color != "Corporate")    //Collapse the dropdown menu after each iteration except for the last one since the dropdown will automatically collapse after clicking the last option
+            await dropDownMenu.click()        //Click the dropdown menu to reopen it for the next iteration
+    }
 })
