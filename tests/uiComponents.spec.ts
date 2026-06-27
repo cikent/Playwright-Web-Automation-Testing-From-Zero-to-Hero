@@ -80,10 +80,22 @@ test ('Lists and Dropdowns', async ({ page }) => {
     }
 
     await dropDownMenu.click()        //Click the dropdown menu to reopen it for the next iteration
-    for(const color in colors){                                    
+    for(const color in colors){       //Iterate through the Object to get each key value                            
         await optionList.filter({ hasText: color}).click()        //Iterate through the Object to filter the List and click each theme option
         await expect(header).toHaveCSS('background-color', colors[color])
         if(color != "Corporate")    //Collapse the dropdown menu after each iteration except for the last one since the dropdown will automatically collapse after clicking the last option
             await dropDownMenu.click()        //Click the dropdown menu to reopen it for the next iteration
     }
+})
+
+test('Tooltips', async ({ page }) => {
+    await page.getByText('Modal & Overlays').click()                                        //Navigate to the Modal & Overlays page via the Sidebar
+    await page.getByText('Tooltip').click()                                                  //Select Tooltip from the Modal & Overlays submenu 
+   
+    const toolTipCard = page.locator('nb-card', { hasText: "Tooltip Placements" })           //Select the Card with the text value "Tooltip Placements"
+    await toolTipCard.getByRole('button', {name: "Top"}).hover()        //Hover over the button with the name value "Top"
+
+    page.getByRole('tooltip')        //If you have a role tooltip created in your application, you can use the getByRole method to locate it. This method allows you to find elements based on their ARIA roles, which can be useful for testing accessibility features.
+    const tooltip = await page.locator('nb-tooltip').textContent()        //Get the text content of the tooltip element
+    expect(tooltip).toEqual('This is a tooltip')        //Assert that the tooltip text content is as expected   
 })
