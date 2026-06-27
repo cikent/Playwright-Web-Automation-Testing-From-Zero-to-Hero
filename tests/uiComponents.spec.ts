@@ -99,3 +99,15 @@ test('Tooltips', async ({ page }) => {
     const tooltip = await page.locator('nb-tooltip').textContent()        //Get the text content of the tooltip element
     expect(tooltip).toEqual('This is a tooltip')        //Assert that the tooltip text content is as expected   
 })
+
+test('Dialog Box', async ({ page }) => {
+    await page.getByText('Tables & Data').click()                                        //Navigate to the Tables & Data page via the Sidebar
+    await page.getByText('Smart Table').click()                                                  //Select Smart Table from the Tables & Data submenu
+    page.on('dialog', dialog => {
+        expect(dialog.message()).toEqual('Are you sure you want to delete?')        //Assert that the dialog box message is as expected
+        dialog.accept()        //Accept the dialog box
+    })
+
+    await page.getByRole('table').locator('tr', { hasText: "mdo@gmail.com" }).locator('.nb-trash').click()        //Locate the table row with the text value "
+    await expect(page.locator('table tr').first()).not.toHaveText('mdo@gmail.com')        //Assert that the first row of the table does not have the text value "mdo@gmail.com"
+})
