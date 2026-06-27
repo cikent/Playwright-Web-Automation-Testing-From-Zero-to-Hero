@@ -111,3 +111,25 @@ test('Dialog Box', async ({ page }) => {
     await page.getByRole('table').locator('tr', { hasText: "mdo@gmail.com" }).locator('.nb-trash').click()        //Locate the table row with the text value "
     await expect(page.locator('table tr').first()).not.toHaveText('mdo@gmail.com')        //Assert that the first row of the table does not have the text value "mdo@gmail.com"
 })
+
+test('Web Tables', async ({ page }) => {
+    await page.getByText('Tables & Data').click()                                        //Navigate to the Tables & Data page via the Sidebar
+    await page.getByText('Smart Table').click()                                          //Select Smart Table from the Tables & Data submenu
+
+    //1 Get the row by any Text in the row
+    const targetRow = page.getByRole('row', {name: "twitter@outlook.com"})
+    await targetRow.locator('.nb-edit').click()        //Click the Edit button in the row with the text value
+    await page.locator('input-editor').getByPlaceholder('Age').clear()        //Clear the Age input field in the row with the text value
+    await page.locator('input-editor').getByPlaceholder('Age').fill('35')        //Fill the Age input field in the row with the text value "twitter@outlook.com"
+    await page.locator('.nb-checkmark').click()        //Click the Checkmark button in the row with the text value
+
+    //2 Get the row based on the value in the specific column
+    await page.locator('.ng2-smart-pagination-nav').getByText('2').click()        //Click the page number 2 in the pagination navigation
+    const targetRowById = page.getByRole('row', {name: "11"}).filter({has: page.locator('td').nth(1).getByText('11')})        //Get the row with the ID value "11"    
+    await targetRowById.locator('.nb-edit').click()        //Click the Edit button in the row with the ID value "11"
+    await page.locator('input-editor').getByPlaceholder('E-mail').clear()        //Clear the Email input field in the row with the ID value "11"
+    await page.locator('input-editor').getByPlaceholder('E-mail').fill('test@test.com')        //Fill the Email input field in the row with the ID value "11"
+    await page.locator('.nb-checkmark').click()        //Click the Checkmark button in the row with the text value
+    await expect(targetRowById.locator('td').nth(5)).toHaveText('test@test.com')        //Assert that the Email column in the row with the ID value "11" has the expected text value
+    
+})
