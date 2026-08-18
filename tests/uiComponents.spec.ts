@@ -109,7 +109,7 @@ test('Dialog Box', async ({ page }) => {
     })
 
     await page.getByRole('table').locator('tr', { hasText: "mdo@gmail.com" }).locator('.nb-trash').click()        //Locate the table row with the text value "
-    await expect(page.locator('table tr').first()).not.toHaveText('mdo@gmail.com')        //Assert that the first row of the table does not have the text value "mdo@gmail.com"
+    await expect(page.locator('table tr').first()).not.toHaveText('mdo@gmail.com')      //Assert that the first row of the table does not have the text value "mdo@gmail.com"
 })
 
 test('Web Tables', async ({ page }) => {
@@ -123,7 +123,7 @@ test('Web Tables', async ({ page }) => {
     await page.locator('input-editor').getByPlaceholder('Age').fill('35')        //Fill the Age input field in the row with the text value "twitter@outlook.com"
     await page.locator('.nb-checkmark').click()        //Click the Checkmark button in the row with the text value
 
-    //2 Get the row based on the value in the specific column
+    //2 Get the row based on the value in the specific column value
     await page.locator('.ng2-smart-pagination-nav').getByText('2').click()        //Click the page number 2 in the pagination navigation
     const targetRowById = page.getByRole('row', {name: "11"}).filter({has: page.locator('td').nth(1).getByText('11')})        //Get the row with the ID value "11"    
     await targetRowById.locator('.nb-edit').click()        //Click the Edit button in the row with the ID value "11"
