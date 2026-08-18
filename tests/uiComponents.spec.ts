@@ -132,4 +132,21 @@ test('Web Tables', async ({ page }) => {
     await page.locator('.nb-checkmark').click()        //Click the Checkmark button in the row with the text value
     await expect(targetRowById.locator('td').nth(5)).toHaveText('test@test.com')        //Assert that the Email column in the row with the ID value "11" has the expected text value
     
+    //3 Loop through table rows to find a specific value in a specific column and perform an action
+
+    const ages = ["20", "30", "40", "200"]        //Define an array of Age values to search for in the table
+
+    for ( let age of ages) {        //Iterate through the array of Age values
+        await page.getByPlaceholder('Age').fill(age)        //Fill the Age input field in the table header with the current Age value
+
+        if(age == "200"){
+            await expect(page.locator('tbody')).toContainText('No data found')          //Assert that the table body contains the text value "No data found" when searching for an Age value that does not exist in the table
+        } else {
+            await expect (page.locator('tbody tr').first().locator('td').last()).toHaveText(age)        //Assert that the Age column in the first row of the table has the expected text value
+            const allTableRows = await page.locator('tbody tr').all()    //Get all the table rows in the table body
+            for (let row of allTableRows) {        //Iterate through all the table rows
+                await expect(row.locator('td').last()).toHaveText(age)        //Assert that the Age column in each row has the expected text value
+            }
+        }
+    }
 })
