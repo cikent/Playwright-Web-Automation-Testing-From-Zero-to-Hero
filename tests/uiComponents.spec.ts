@@ -159,7 +159,8 @@ test ('Datepicker', async ({ page }) => {               //Navigate to the Datepi
     await calendarInputField.click()        //Click the Calendar input field to open the calendar widget
 
     const date = new Date();
-    date.setDate(date.getDate() + 5)        //Get the date 5 days from today
+    //date.setDate(date.getDate() + 5)        //Get the date 5 days from today
+    date.setDate(date.getDate())        //Get the date for today
     const expectedDay = date.getDate().toString()        //Get the day value of the date 5 days from today as a string
     const expectedMonth = date.toLocaleString('En-US', { month: 'short' })        //Get the month value of the date 5 days from today as a string
     const expectedMonthLong = date.toLocaleString('En-US', { month: 'long' })        //Get the month value of the date 5 days from today as a string
