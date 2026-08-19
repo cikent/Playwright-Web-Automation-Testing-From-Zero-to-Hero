@@ -161,10 +161,10 @@ test ('Datepicker', async ({ page }) => {               //Navigate to the Datepi
     const date = new Date();
     //date.setDate(date.getDate() + 5)        //Get the date 5 days from today
     date.setDate(date.getDate())        //Get the date for today
-    const expectedDay = date.getDate().toString()        //Get the day value of the date 5 days from today as a string
-    const expectedMonth = date.toLocaleString('En-US', { month: 'short' })        //Get the month value of the date 5 days from today as a string
-    const expectedMonthLong = date.toLocaleString('En-US', { month: 'long' })        //Get the month value of the date 5 days from today as a string
-    const expectedYear = date.getFullYear()                             //Get the year value of the date 5 days from today as a string
+    const expectedDay = date.getDate().toString()        //Get the day value of the date from today as a string
+    const expectedMonth = date.toLocaleString('En-US', { month: 'short' })        //Get the month value of the date from today as a string
+    const expectedMonthLong = date.toLocaleString('En-US', { month: 'long' })        //Get the month value of the date from today as a string
+    const expectedYear = date.getFullYear()                             //Get the year value of the date from today as a string
     const expectedDate = `${expectedMonth} ${expectedDay}, ${expectedYear}`        //Format the expected date as a string
 
     let currentMonthAndYear = await page.locator('nb-calendar-view-mode').textContent()     //Get the current month and year displayed in the calendar widget
