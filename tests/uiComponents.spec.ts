@@ -150,3 +150,15 @@ test('Web Tables', async ({ page }) => {
         }
     }
 })
+
+test ('Datepicker', async ({ page }) => {               //Navigate to the Datepicker page via the Sidebar
+    await page.getByText('Forms').click()               //Click the Forms menu item in the Sidebar
+    await page.getByText('Datepicker').click()          //Click the Datepicker submenu item in the Sidebar
+
+    const calendarInputField  = page.getByPlaceholder('Form Picker')        //Get the Calendar input field by its placeholder value
+    await calendarInputField.click()        //Click the Calendar input field to open the calendar widget
+
+    await page.locator('.day-cell:not(.bounding-month)').getByText('2', {exact: true}).click()          //Get the day cell with the exact text value "2" that is not in the bounding month and click it 
+    await expect(calendarInputField).toHaveValue('Aug 2, 2026')     //Assert that the Calendar input field has the expected value after selecting the date
+
+})
