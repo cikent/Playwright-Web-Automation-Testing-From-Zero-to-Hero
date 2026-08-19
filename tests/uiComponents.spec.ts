@@ -158,7 +158,23 @@ test ('Datepicker', async ({ page }) => {               //Navigate to the Datepi
     const calendarInputField  = page.getByPlaceholder('Form Picker')        //Get the Calendar input field by its placeholder value
     await calendarInputField.click()        //Click the Calendar input field to open the calendar widget
 
-    await page.locator('.day-cell:not(.bounding-month)').getByText('2', {exact: true}).click()          //Get the day cell with the exact text value "2" that is not in the bounding month and click it 
-    await expect(calendarInputField).toHaveValue('Aug 2, 2026')     //Assert that the Calendar input field has the expected value after selecting the date
+    const date = new Date();
+    date.setDate(date.getDate() + 5)        //Get the date 5 days from today
+    const expectedDay = date.getDate().toString()        //Get the day value of the date 5 days from today as a string
+    const expectedMonth = date.toLocaleString('En-US', { month: 'short' })        //Get the month value of the date 5 days from today as a string
+    const expectedMonthLong = date.toLocaleString('En-US', { month: 'long' })        //Get the month value of the date 5 days from today as a string
+    const expectedYear = date.getFullYear()                             //Get the year value of the date 5 days from today as a string
+    const expectedDate = `${expectedMonth} ${expectedDay}, ${expectedYear}`        //Format the expected date as a string
+
+    let currentMonthAndYear = await page.locator('nb-calendar-view-mode').textContent()     //Get the current month and year displayed in the calendar widget
+    const expectedMonthAndYear = `${expectedMonthLong} ${expectedYear}`                     //Format the expected month and year as a string
+    while(!currentMonthAndYear?.includes(expectedMonthAndYear)) {                           //While the current month and year displayed in the calendar widget does not include the expected month and year, click the next month button
+        await page.locator('.next-month').click()           //Click the next month button in the calendar widget
+        currentMonthAndYear = await page.locator('nb-calendar-view-mode').textContent()     //Get the current month and year displayed in the calendar widget after clicking the next month button
+    }
+
+
+    await page.locator('.day-cell:not(.bounding-month)').getByText(expectedDay, {exact: true}).click()          //Get the day cell with the exact text value "2" that is not in the bounding month and click it
+    await expect(calendarInputField).toHaveValue(expectedDate)     //Assert that the Calendar input field has the expected value after selecting the date
 
 })
