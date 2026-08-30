@@ -179,3 +179,29 @@ test ('Datepicker', async ({ page }) => {               //Navigate to the Datepi
     await expect(calendarInputField).toHaveValue(expectedDate)     //Assert that the Calendar input field has the expected value after selecting the date
 
 })
+
+test ('Sliders', async ({ page }) => {                     //Navigate to the Sliders page via the Sidebar
+    //1 Setting the Attribute values of the Slider element to move it to the right
+    const tempGuage = page.locator('[tabtitle="Temperature"] ngx-temperature-dragger circle')   //Get the circle element of the Temperature slider
+    await tempGuage.evaluate( element => {                  //Use the evaluate method to execute JavaScript code in the context of the page
+        element.setAttribute('cx', 'cx="231.616"')        //Set the cx attribute of the circle element to 231.616 to move the slider to the right
+        element.setAttribute('cy', 'cx="cy="47.238"')     //Set the cy attribute of the circle element to 47.238 to move the slider to the right
+    })
+    await tempGuage.click()        //Click the circle element of the Temperature slider to move it to the right
+
+    //2 Setting via Mouse Movement
+    const tempBox = page.locator('[tabtitle="Temperature"] ngx-temperature-dragger')   //Get the circle element of the Temperature slider
+    await tempBox.scrollIntoViewIfNeeded()                                             //Scroll the Temperature slider into view if it is not already in view
+
+    const box = await tempBox.boundingBox()                                         //Get the bounding box of the Temperature slider element
+    const x = box?.x + box?.width / 2           //Get the x coordinate of the center of the box element
+    const y = box?.y + box?.height / 2          //Get the y coordinate of the center of the box element
+
+    await page.mouse.move(x, y)                 //Move the mouse to the center of the box element
+    await page.mouse.down()                     //Press the mouse button down to start dragging the slider
+    await page.mouse.move(x+100, y)             //Move the mouse to the right by 100 pixels to drag the slider
+    await page.mouse.move(x+100, y+100)         //Move the mouse to the right by 100 pixels to drag the slider
+    await page.mouse.up()                       //Release the mouse button to stop dragging the slider
+    await expect(tempBox).toContainText('30')  //Assert that the Temperature slider has the expected value after dragging
+
+})
