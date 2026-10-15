@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/')    
+    //await page.goto('http://localhost:4200/')                                              //Default Localhost URL for Angular Applications
+    await page.goto('https://playground.bondaracademy.com/pages/iot-dashboard')      //Default URL for the Bondar Academy Playground Application
+    
 })
 
 test.describe('Form Layouts page', () => {
@@ -181,27 +183,38 @@ test ('Datepicker', async ({ page }) => {               //Navigate to the Datepi
 })
 
 test ('Sliders', async ({ page }) => {                     //Navigate to the Sliders page via the Sidebar
-    //1 Setting the Attribute values of the Slider element to move it to the right
-    const tempGuage = page.locator('[tabtitle="Temperature"] ngx-temperature-dragger circle')   //Get the circle element of the Temperature slider
-    await tempGuage.evaluate( element => {                  //Use the evaluate method to execute JavaScript code in the context of the page
-        element.setAttribute('cx', 'cx="231.616"')        //Set the cx attribute of the circle element to 231.616 to move the slider to the right
-        element.setAttribute('cy', 'cx="cy="47.238"')     //Set the cy attribute of the circle element to 47.238 to move the slider to the right
-    })
-    await tempGuage.click()        //Click the circle element of the Temperature slider to move it to the right
+    //1 Setting the Attribute values of the Slider element to move it to the right position
+    // const tempGuage = page.locator('[tabtitle="Temperature"] ngx-temperature-dragger circle')   //Get the circle element of the Temperature slider
+    // await tempGuage.evaluate( element => {                  //Use the evaluate method to execute JavaScript code in the context of the page
+    //     element.setAttribute('cx', '232.630')               //Set the cx attribute of the circle element to 232.630 to move the slider to the right
+    //     element.setAttribute('cy', '232.630')               //Set the cy attribute of the circle element to 232.630 to move the slider to the right
+    // })
+    // await tempGuage.click()        //Click the circle element of the Temperature slider to move it to the right on-screen position
 
-    //2 Setting via Mouse Movement
-    const tempBox = page.locator('[tabtitle="Temperature"] ngx-temperature-dragger')   //Get the circle element of the Temperature slider
+   //2 Setting via Mouse Movement
+    const tempBox = page.locator('[tabtitle="Temperature"] ngx-temperature-dragger')   //Get the UI element box of the Temperature slider section
     await tempBox.scrollIntoViewIfNeeded()                                             //Scroll the Temperature slider into view if it is not already in view
 
-    const box = await tempBox.boundingBox()                                         //Get the bounding box of the Temperature slider element
+    //Define a bounding box for the Temperature slider element to get its position and size
+    const box = await tempBox.boundingBox()     //Get the bounding box of the Temperature slider element
     const x = box?.x + box?.width / 2           //Get the x coordinate of the center of the box element
     const y = box?.y + box?.height / 2          //Get the y coordinate of the center of the box element
 
+    //Use the mouse to move to the center of the box element, press down, move to the right by 100 pixels, and release the mouse button
     await page.mouse.move(x, y)                 //Move the mouse to the center of the box element
-    await page.mouse.down()                     //Press the mouse button down to start dragging the slider
+    await page.mouse.down()                     //Press the mouse button down (left-click) to start dragging the slider
     await page.mouse.move(x+100, y)             //Move the mouse to the right by 100 pixels to drag the slider
-    await page.mouse.move(x+100, y+100)         //Move the mouse to the right by 100 pixels to drag the slider
+    await page.mouse.move(x+100, y+100)         //Move the mouse to the right and down by 100 pixels to drag the slider more
     await page.mouse.up()                       //Release the mouse button to stop dragging the slider
     await expect(tempBox).toContainText('30')  //Assert that the Temperature slider has the expected value after dragging
-
+    
 })
+
+// test ('iFrames', async ({ page }) => {                                                     //Navigate to the iFrames page via the Sidebar
+//     await page.getByText('Modal & Overlays').click()                                       //Click the Modal & Overlays menu item in the Sidebar
+//     await page.getByText('Dialog').click()                                                 //Click the iFrame submenu item in the Sidebar
+
+//     const frameLocator = page.frameLocator('[data-cy="esc-close-iframe"]')                 //Get the iFrame element by its data-cy attribute value
+
+//     await frameLocator.getByRole('button', {name: 'Open Dialog with esc close'}).click()   //Click the button to open the iFrame dialog box
+// })
