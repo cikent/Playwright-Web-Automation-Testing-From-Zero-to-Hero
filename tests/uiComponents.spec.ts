@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
     //await page.goto('http://localhost:4200/')                                              //Default Localhost URL for Angular Applications
-    await page.goto('https://playground.bondaracademy.com/pages/iot-dashboard')      //Default URL for the Bondar Academy Playground Application
-    
+    await page.goto('https://playground.bondaracademy.com/pages/iot-dashboard')            //Default URL for the Bondar Academy Playground Application > Dashboard page
+    //await page.goto('https://playground.bondaracademy.com/pages/modal-overlays/dialog')      //Default URL for the Bondar Academy Playground Application > Dialog page
 })
 
 test.describe('Form Layouts page', () => {
@@ -210,11 +210,11 @@ test ('Sliders', async ({ page }) => {                     //Navigate to the Sli
     
 })
 
-// test ('iFrames', async ({ page }) => {                                                     //Navigate to the iFrames page via the Sidebar
-//     await page.getByText('Modal & Overlays').click()                                       //Click the Modal & Overlays menu item in the Sidebar
-//     await page.getByText('Dialog').click()                                                 //Click the iFrame submenu item in the Sidebar
+test ('iFrames', async ({ page }) => {                                                     //Navigate to the iFrames page via the Sidebar
+    await page.getByText('Modal & Overlays').click()                                       //Click the Modal & Overlays menu item in the Sidebar
+    await page.getByText('Dialog').click()                                                 //Click the iFrame submenu item in the Sidebar
 
-//     const frameLocator = page.frameLocator('[data-cy="esc-close-iframe"]')                 //Get the iFrame element by its data-cy attribute value
+    const frameLocator = page.frameLocator('[data-cy="esc-close-iframe"]')                 //Get the iFrame element by its data-cy attribute value
 
-//     await frameLocator.getByRole('button', {name: 'Open Dialog with esc close'}).click()   //Click the button to open the iFrame dialog box
-// })
+    await frameLocator.getByRole('button', {name: 'Open Dialog with esc close'}).click()   //Click the button to open the iFrame dialog box
+})
