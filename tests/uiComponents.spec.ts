@@ -218,3 +218,18 @@ test ('iFrames', async ({ page }) => {                                          
 
     await frameLocator.getByRole('button', {name: 'Open Dialog with esc close'}).click()   //Click the button to open the iFrame dialog box
 })
+
+test('Drag & Drop', async ({ page }) => {                                                  //Navigate to the iFrames page via the Sidebar
+    await page.getByText('Extra Components').click()                                       //Click the Extra Components menu item in the Sidebar
+    await page.getByText('Drag & Drop').click()                                            //Click the Drag & Drop submenu item in the Sidebar
+
+    //Option 1: Using the dragTo() method to drag and drop an element
+    await page.getByText('Clean my room').dragTo(page.locator('#drop-list'))                //Drag the "Clean my room" task to the drop list
+
+    //Option 2: Using the mouse to drag and drop an element
+    await page.getByText('Get groceries').hover()                                           //Hover over the "Get groceries" task to get its position
+    await page.mouse.down()                                                                 //Press the mouse button down (left-click) to start dragging the "Get groceries" task
+    await page.locator('#drop-list').hover()                                                //Hover over the drop list to get its position
+    await page.mouse.up()                                                                   //Release the mouse button to drop the "Get groceries" task into the drop list
+
+})
