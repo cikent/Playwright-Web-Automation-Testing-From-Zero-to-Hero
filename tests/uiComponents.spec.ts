@@ -4,6 +4,13 @@ test.beforeEach(async ({ page }) => {
     //await page.goto('http://localhost:4200/')                                              //Default Localhost URL for Angular Applications
     await page.goto('https://playground.bondaracademy.com/pages/iot-dashboard')            //Default URL for the Bondar Academy Playground Application > Dashboard page
     //await page.goto('https://playground.bondaracademy.com/pages/modal-overlays/dialog')      //Default URL for the Bondar Academy Playground Application > Dialog page
+    //Important Note | Two Important Principles:
+    //1. DRY: Don't Repeat Yourself - Avoid repeating code in multiple places, instead use functions or variables to store reusable code.
+    //2. KISS: Keep It Simple, Stupid - Avoid overcomplicating code, instead use simple and straightforward solutions that are easy to understand and maintain.
+
+    //Important Note | Two useful practices:
+    //1. Descriptive naming: Use descriptive names for variables, functions, and test cases to make the code more readable and understandable.
+    //2. Avoid tiny methods: Avoid creating tiny methods that do very little, instead create methods that perform meaningful actions and have a clear purpose.
 })
 
 test.describe('Form Layouts page', () => {
