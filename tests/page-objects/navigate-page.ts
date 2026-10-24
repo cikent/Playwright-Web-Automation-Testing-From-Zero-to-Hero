@@ -6,12 +6,6 @@ export class NavigationPage {
 
     //Declare a Private readonly property named page of type Page
     private readonly page: Page
-    // readonly formLayoutsMenu: Locator
-    // readonly datepickerMenu: Locator
-    // readonly toasterMenu: Locator
-    // readonly tooltipMenu: Locator
-    // readonly smartTableMenu: Locator
-
 
     //Define a constructor utilizing this.page syntax that takes a Page object as a parameter and assigns it to the page property
     constructor(page: Page) {
