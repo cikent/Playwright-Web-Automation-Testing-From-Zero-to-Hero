@@ -1,7 +1,7 @@
 import {test, expect} from '@playwright/test'
 
 test.beforeEach(async ({page}) => {
-    await page.goto('http://localhost:4200/')
+    await page.goto('https://playground.bondaracademy.com/')            //Default URL for the Bondar Academy Playground Application > Form Layouts page
     await page.getByText('Forms').click()
     await page.getByText('Form Layouts').click()
 })
@@ -35,9 +35,9 @@ test('Locator Syntax Rules', async ({page}) => {
     page.locator(':text-is("Using the Grid")')
 })
 
-test('User Facing Locators', async ({page}) => {
-    await page.getByRole('textbox', {name: "Email"}).first().click()
-    await page.getByRole('button', {name: "Sign in"}).first().click()
+test('User Visible Locators', async ({page}) => {
+    await page.getByRole('button', {name: 'Sign in'}).first().click()
+    await page.getByRole('textbox', { name: 'Email' }).first().fill('test@test.com')
 
     await page.getByLabel('Email').first().click()
 
@@ -45,7 +45,7 @@ test('User Facing Locators', async ({page}) => {
 
     await page.getByText('Using the Grid').click()
 
-    await page.getByTestId('SignIn').click()
+    //await page.getByTestId('SignIn').click()
 
     await page.getByTitle('IoT Dashboard').click()
 })

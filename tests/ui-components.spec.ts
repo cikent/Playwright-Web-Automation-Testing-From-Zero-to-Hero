@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
-    //await page.goto('http://localhost:4200/')                                              //Default Localhost URL for Angular Applications
+    //await page.goto('http://localhost:4200/')                                            //Default Localhost URL for Angular Applications
     await page.goto('https://playground.bondaracademy.com/pages/iot-dashboard')            //Default URL for the Bondar Academy Playground Application > Dashboard page
     //await page.goto('https://playground.bondaracademy.com/pages/modal-overlays/dialog')      //Default URL for the Bondar Academy Playground Application > Dialog page
     //Important Note | Two Important Principles:

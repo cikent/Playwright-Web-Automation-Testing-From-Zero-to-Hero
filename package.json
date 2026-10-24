@@ -18,6 +18,6 @@
   "homepage": "https://github.com/cikent/Playwright-Web-Automation-Testing-From-Zero-to-Hero#readme",
   "devDependencies": {
     "@playwright/test": "^1.56.1",
-    "@types/node": "^24.8.1"
+    "@types/node": "^24.19.2"
   }
 }
