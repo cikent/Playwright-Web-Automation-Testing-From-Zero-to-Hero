@@ -12,4 +12,8 @@ test('Navigate to Form Layouts page', async ({ page }) => {
     //Create an new instance of the NavigationPage class and pass the page object to it
     const navigateTo = new NavigationPage(page)
     await navigateTo.formLayoutsPage()
+    await navigateTo.datePickerPage()
+    await navigateTo.toasterPage()
+    await navigateTo.tooltipPage()
+    await navigateTo.smartTablePage()
 })
