@@ -1,16 +1,14 @@
 import { Page } from '@playwright/test'
 import { step } from '../helpers/test-step-decorator'
+import { HelperBase } from './helper-base'
 
-export class FormLayoutsPage {
+export class FormLayoutsPage extends HelperBase {
+    
     //Declare a Private readonly property named page of type Page
-    private readonly page: Page
-
-    //Define a constructor utilizing this.page syntax that takes a Page object as a parameter and assigns it to the page property
     constructor(page: Page) {
-        //Assign the passed Page object to the page property of the class
-        this.page = page
+        //Call the constructor of the parent class HelperBase with the page parameter
+        super(page)
     }
-
     /**
      * This method submits the grid form with user email, and the "Remember me" checkbox can be selected based on the boolean parameter rememberMeCheckbox.
      * @param email - Valid test user email address to be entered in the "Email" input field of the Grid form

@@ -1,14 +1,13 @@
 import { Page, expect } from '@playwright/test'
 import { step } from '../helpers/test-step-decorator'
+import { HelperBase } from './helper-base'
 
-export class DatePickerPage {
+export class DatePickerPage extends HelperBase {
+    
     //Declare a Private readonly property named page of type Page
-    private readonly page: Page
-
-    //Define a constructor utilizing this.page syntax that takes a Page object as a parameter and assigns it to the page property
     constructor(page: Page) {
-        //Assign the passed Page object to the page property of the class
-        this.page = page
+        //Call the constructor of the parent class HelperBase with the page parameter
+        super(page)
     }
 
     /**

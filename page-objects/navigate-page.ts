@@ -1,16 +1,14 @@
 import { Page } from '@playwright/test'
 import { step } from '../helpers/test-step-decorator'
+import { HelperBase } from './helper-base'
 
 //Define and export a CamelCase class named NavigationPage that represents the navigation page object
-export class NavigationPage {
+export class NavigationPage extends HelperBase {
 
     //Declare a Private readonly property named page of type Page
-    private readonly page: Page
-
-    //Define a constructor utilizing this.page syntax that takes a Page object as a parameter and assigns it to the page property
     constructor(page: Page) {
-        //Assign the passed Page object to the page property of the class
-        this.page = page
+        //Call the constructor of the parent class HelperBase with the page parameter
+        super(page)
     }
 
     /**
@@ -26,6 +24,8 @@ export class NavigationPage {
         await this.selectGroupMenuItem('Forms')
         //Use the page's getByText property to interact with the page Text value
         await this.page.getByText('Form Layouts').click()
+        const toastMessage = await this.getToastrMessage()
+        console.log(toastMessage)
     }
 
     /**
