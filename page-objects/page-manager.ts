@@ -15,7 +15,7 @@ import { DatePickerPage } from '../page-objects/datepicker-page'
  */
 export class PageManager {
     private readonly page: Page
-    private readonly navigationPage: NavigationPage
+    private readonly NavigationPage: NavigationPage
     private readonly FormLayoutsPage: FormLayoutsPage
     private readonly DatePickerPage: DatePickerPage
 
@@ -25,7 +25,7 @@ export class PageManager {
      */
     constructor(page: Page) {
         this.page = page;
-        this.navigationPage = new NavigationPage(this.page)
+        this.NavigationPage = new NavigationPage(this.page)
         this.FormLayoutsPage = new FormLayoutsPage(this.page)
         this.DatePickerPage = new DatePickerPage(this.page)
 
@@ -36,7 +36,7 @@ export class PageManager {
      * @returns {NavigationPage} The navigation page.
      */
     get navigateTo() {
-        return this.navigationPage;
+        return this.NavigationPage;
     }
 
     /**
