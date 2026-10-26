@@ -1,8 +1,8 @@
 //Import { test, expect } from '@playwright/test' and other required modules
 import {test} from '@playwright/test'
-import { NavigationPage } from './page-objects/navigate-page'
-import { FormLayoutsPage } from './page-objects/form-layouts-page'
-import { DatePickerPage } from './page-objects/datepicker-page'
+import { NavigationPage } from '../page-objects/navigate-page'
+import { FormLayoutsPage } from '../page-objects/form-layouts-page'
+import { DatePickerPage } from '../page-objects/datepicker-page'
 
 //Define Preconditions for the test suite using test.beforeEach hook
 test.beforeEach(async ({ page }) => {

@@ -1,4 +1,5 @@
 import { Page, expect } from '@playwright/test'
+import { step } from '../helpers/test-step-decorator'
 
 export class DatePickerPage {
     //Declare a Private readonly property named page of type Page
@@ -14,6 +15,7 @@ export class DatePickerPage {
      * This method selects a date from the common datepicker based on the number of days from today.
      * @param daysFromToday - Number of days from today to select
      */
+    @step
     async selectCommonDatepickerDateFromToday(daysFromToday: number) {
         const calendarInputField = this.page.getByPlaceholder('Form Picker')        //Get the Calendar input field by its placeholder value
         await calendarInputField.click()                                            //Click the Calendar input field to open the calendar widget
@@ -26,6 +28,7 @@ export class DatePickerPage {
      * @param daysFromTodayStart - Number of days from today to select for the start date
      * @param endDaysFromTodayEnd - Number of days from today to select for the end date
      */
+    @step
     async selectDatepickerWithRangeFromToday(daysFromTodayStart: number, endDaysFromTodayEnd: number) {
         const calendarInputField = this.page.getByPlaceholder('Range Picker')                 //Get the Calendar input field by its placeholder value
         await calendarInputField.click()                                                      //Click the Calendar input field to open the calendar widget

@@ -1,5 +1,5 @@
-//Import {Page} from '@playwright/test' and other required modules
 import { Page } from '@playwright/test'
+import { step } from '../helpers/test-step-decorator'
 
 //Define and export a CamelCase class named NavigationPage that represents the navigation page object
 export class NavigationPage {
@@ -13,7 +13,14 @@ export class NavigationPage {
         this.page = page
     }
 
-    //Define an asynchronous method named formLayoutsPage that navigates to the Form Layouts page
+    /**
+     * This method navigates to the Form Layouts page by expanding the Forms menu and clicking on the Form Layouts submenu item.
+     * It uses the private method selectGroupMenuItem to ensure the Forms menu is expanded before clicking on the submenu item.
+     * The method is decorated with the @step decorator to log the step in the test report.
+     * 
+     * @returns {Promise<void>} - A promise that resolves when the navigation is complete.
+     */
+    @step
     async formLayoutsPage() {
         //Call the private method selectGroupMenuItem to ensure the Forms menu is expanded
         await this.selectGroupMenuItem('Forms')
@@ -21,7 +28,14 @@ export class NavigationPage {
         await this.page.getByText('Form Layouts').click()
     }
 
-    //Define an asynchronous method named datePickerPage that navigates to the Datepicker page
+    /**
+     * This method navigates to the Datepicker page by expanding the Forms menu and clicking on the Datepicker submenu item.
+     * It uses the private method selectGroupMenuItem to ensure the Forms menu is expanded before clicking on the submenu item.
+     * The method is decorated with the @step decorator to log the step in the test report.
+     * 
+     * @returns {Promise<void>} - A promise that resolves when the navigation is complete.
+     */
+    @step
     async datePickerPage() {
         //Call the private method selectGroupMenuItem to ensure the Forms menu is expanded
         await this.selectGroupMenuItem('Forms')
@@ -29,7 +43,12 @@ export class NavigationPage {
         await this.page.getByText('Datepicker').click()          //Click the Datepicker submenu item in the Sidebar
     }
 
-    //Define an asynchronous method named toasterPage that navigates to the Toaster page
+    /**
+     * This method navigates to the Toaster page by expanding the Modal & Overlays menu and clicking on the Toastr submenu item.
+     * It uses the private method selectGroupMenuItem to ensure the Modal & Overlays menu is expanded before clicking on the submenu item.
+     * The method is decorated with the @step decorator to log the step in the test report.
+     */
+    @step
     async toasterPage() {
         //Call the private method selectGroupMenuItem to ensure the Modal & Overlays menu is expanded
         await this.selectGroupMenuItem('Modal & Overlays')
@@ -37,14 +56,24 @@ export class NavigationPage {
         await this.page.getByText('Toastr').click()                                                  //Select Toastr from the Modal & Overlays submenu
     }
 
-    //Define an asynchronous method named tooltipPage that navigates to the Tooltip page
+    /**
+     * This method navigates to the Tooltip page by expanding the Modal & Overlays menu and clicking on the Tooltip submenu item.
+     * It uses the private method selectGroupMenuItem to ensure the Modal & Overlays menu is expanded before clicking on the submenu item.
+     * The method is decorated with the @step decorator to log the step in the test report.
+     */
+    @step
     async tooltipPage() {
         //Call the private method selectGroupMenuItem to ensure the Modal & Overlays menu is expanded
         await this.selectGroupMenuItem('Modal & Overlays')
         await this.page.getByText('Tooltip').click()                                                  //Select Tooltip from the Modal & Overlays submenu 
     }
 
-    //Define an asynchronous method named smartTablePage that navigates to the Smart Table page
+    /**
+     * This method navigates to the Smart Table page by expanding the Tables & Data menu and clicking on the Smart Table submenu item.
+     * It uses the private method selectGroupMenuItem to ensure the Tables & Data menu is expanded before clicking on the submenu item.
+     * The method is decorated with the @step decorator to log the step in the test report.
+     */
+    @step
     async smartTablePage() {
         //Call the private method selectGroupMenuItem to ensure the Tables & Data menu is expanded
         await this.selectGroupMenuItem('Tables & Data')
