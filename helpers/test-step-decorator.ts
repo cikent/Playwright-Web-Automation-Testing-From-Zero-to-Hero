@@ -1,7 +1,14 @@
-//This file defines a custom decorator function named "step" that can be used to wrap methods in a class. The purpose of this decorator is to log the execution of the decorated method as a step in Playwright's test report. It uses the "test.step" function from Playwright's testing library to achieve this.
+/**
+* This file defines a decorator function named `step` that can be used to annotate methods in Playwright test classes. The `step` decorator logs the execution of the decorated method as a step in Playwright's test report, providing better visibility into the test execution flow. It takes the target method and its context as parameters and returns a replacement method that wraps the original method with step logging functionality.
+*/
 import { test } from '@playwright/test'
 
-//Define a function named step that takes two parameters: target of type Function and context of type ClassMethodDecoratorContext
+/**
+ * A decorator function that logs the execution of the decorated method as a step in Playwright's test report.
+ * @param target - The method to be decorated.
+ * @param context - The context of the decorated method.
+ * @returns A function that wraps the original method with step logging.
+ */
 export function step(target: Function, context: ClassMethodDecoratorContext) {
     return function replacementMethod(this: any, ...args: any) {
         const name = this.constructor.name + '.' + (context.name as string);

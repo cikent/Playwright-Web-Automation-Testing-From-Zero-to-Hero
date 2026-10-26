@@ -18,12 +18,12 @@ test.beforeEach(async ({ page }) => {
 * Navigate to the Form Layouts page and verify the navigation.
  */
 test('Navigate to Form Layouts page', async ({ page }) => {
-    const pom = new PageManager(page)
-    await pom.navigateTo.formLayoutsPage()
-    await pom.navigateTo.datePickerPage()
-    await pom.navigateTo.toasterPage()
-    await pom.navigateTo.tooltipPage()
-    await pom.navigateTo.smartTablePage()
+    const pm = new PageManager(page);
+    await pm.navigateTo.formLayoutsPage();
+    await pm.navigateTo.datePickerPage();
+    await pm.navigateTo.toasterPage();
+    await pm.navigateTo.tooltipPage();
+    await pm.navigateTo.smartTablePage();
 })
 
 /**
