@@ -26,8 +26,8 @@ test('Alternative Waits', async ({ page }) => {
     //___ wait for element
     //await page.waitForSelector('.bg-success')
 
-    //___ wait for particular response
-    await page.waitForResponse('http://uitestingplayground.com/ajaxdata')
+    //___ wait for element (the request was already triggered in beforeEach)
+    await page.waitForSelector('.bg-success')
 
     //___ wait for network calls to be completed ('NOT RECOMMENDED')
     await page.waitForLoadState('networkidle')
