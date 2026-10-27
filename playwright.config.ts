@@ -19,6 +19,7 @@ export default defineConfig({
   //   timeout: 2000,                  // Maximum time expect() should wait for the condition to be met; default is 5000 ms
   // },
   testDir: './tests',
+  testMatch: [/\.spec\.ts/, /\.api\.ts/], // Ensures .api.ts files are detected
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
