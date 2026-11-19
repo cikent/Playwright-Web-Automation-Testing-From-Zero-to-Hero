@@ -41,4 +41,4 @@ test('Timeouts', async ({ page }) => {
     test.slow()                                                                 // marks test as slow to attempt playwright.config.ts's timeout config value 3 times before failing the test
     const successButton = page.locator('.bg-success')
     await successButton.click()
-})
+})        
