@@ -1,9 +1,12 @@
 import { test, expect } from '@playwright/test'
 
-test.beforeEach(async ({ page}, testInfo) => {
+test.beforeEach(async ({ page }, testInfo) => {
+    // 1. Extend timeout FIRST so page.goto() and .click() benefit from it
+    testInfo.setTimeout(testInfo.timeout + 30000)
+
+    // 2. Now run your navigation and actions
     await page.goto('http://uitestingplayground.com/ajax')
     await page.getByText('Button Triggering AJAX Request').click()
-    testInfo.setTimeout(testInfo.timeout + 2000)                           // extend timeout for each test in this file by 2 seconds
 })
 
 test('Auto Waiting', async ({ page }) => {
@@ -17,7 +20,7 @@ test('Auto Waiting', async ({ page }) => {
 
     //expect(text).toContain('Data loaded with AJAX get request.')
 
-    await expect(successButton).toHaveText('Data loaded with AJAX get request.', {timeout: 20000})
+    await expect(successButton).toHaveText('Data loaded with AJAX get request.', {timeout: 30000})
 })
 
 test('Alternative Waits', async ({ page }) => {

@@ -23,9 +23,9 @@ test.describe('Form Layouts page', () => {
     })
 
     test('Input Fields', async ({ page }, testInfo) => {
-        // if(testInfo.retry) {        //Check if the test is being retried
-        //     //clean test data or reset the state of the application before retrying the test
-        // }
+        if(testInfo.retry) {        //Check if the test is being retried
+            //clean test data or reset the state of the application before retrying the test
+        }
         const usingTheGridEmailInput = page.locator('nb-card', { hasText: "Using the Grid" }).getByRole('textbox', { name: 'Email' })        //Get the Email input field by its role and name value within the "Using the Grid" form
         await usingTheGridEmailInput.fill('test@test.com')      //Fill the email input field
         await usingTheGridEmailInput.clear()        //Clear the email input field

@@ -12,22 +12,24 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  // timeout: 10000,                   // Test timeout for each test; default is 30 seconds / 30000 ms
-  // globalTimeout: 600000,            // Global timeout for the whole test suite; no default
+  timeout: 10000,                   // Test timeout for each test; default is 30 seconds / 30000 ms
+  globalTimeout: 60000,            // Global timeout for the whole test suite; no default
   
-  // expect: {
-  //   timeout: 5000,                  // Maximum time expect() should wait for the condition to be met; default is 5000 ms
-  // },
+  expect: {
+    timeout: 5000,                  // Maximum time expect() should wait for the condition to be met; default is 5000 ms
+  },
   testDir: './tests',
   //testMatch: [/\.spec\.ts/, /\.api\.ts/], // Ensures .api.ts files are detected
   /* Run tests in files in parallel */
-  fullyParallel: true,
+  fullyParallel: true,      // Run tests in files in parallel
+  //fullyParallel: false,     // Run tests in files sequentially
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 2 : 1,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  //workers: process.env.CI ? 1 : undefined,      // Use 1 worker on CI, otherwise use the default number of workers
+  workers: process.env.CI ? 1 : 1,      // Use 1 worker on CI, otherwise use the default number of workers
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
