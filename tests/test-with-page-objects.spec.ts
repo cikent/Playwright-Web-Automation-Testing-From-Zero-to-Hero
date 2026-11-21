@@ -5,6 +5,7 @@
  */
 import { test } from '@playwright/test'
 import { PageManager } from '../page-objects/page-manager'
+import {faker} from '@faker-js/faker'
 
 /**
 * Set up the test environment before each test case.
@@ -31,10 +32,14 @@ test('Navigate to Form Layouts page', async ({ page }) => {
  */
 test('Parameterized Page Object Methods', async ({ page }) => {
     const pom = new PageManager(page)
+    const randomFullName = faker.person.fullName()
+    const randomEmail = faker.internet.email({provider: 'test.com'})
+
     await pom.navigateTo.formLayoutsPage()
-    await pom.formLayoutsPage.submitUsingTheGridForm('ckent@test.com', 'Welcome', 'Option 2')
-    await pom.formLayoutsPage.submitInlineForm('Chris Kent', 'ckent@test.com', false)
+    await pom.formLayoutsPage.submitUsingTheGridForm(randomEmail, 'Welcome', 'Option 2')
+    await pom.formLayoutsPage.submitInlineForm(randomFullName, randomEmail, false)
     await pom.navigateTo.datePickerPage()
     await pom.datePickerPage.selectCommonDatepickerDateFromToday(5)
     await pom.datePickerPage.selectDatepickerWithRangeFromToday(7, 20)
+    await pom.navigateTo.smartTablePage()
 })
