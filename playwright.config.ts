@@ -12,11 +12,11 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  //timeout: 10000,                   // Test timeout for each test; default is 30 seconds / 30000 ms
+  // timeout: 10000,                   // Test timeout for each test; default is 30 seconds / 30000 ms
   // globalTimeout: 600000,            // Global timeout for the whole test suite; no default
   
   // expect: {
-  //   timeout: 2000,                  // Maximum time expect() should wait for the condition to be met; default is 5000 ms
+  //   timeout: 5000,                  // Maximum time expect() should wait for the condition to be met; default is 5000 ms
   // },
   testDir: './tests',
   //testMatch: [/\.spec\.ts/, /\.api\.ts/], // Ensures .api.ts files are detected
