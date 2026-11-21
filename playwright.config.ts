@@ -39,6 +39,7 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    video: 'on'                         // Via CI Record video for each test; default is 'off'
     //actionTimeout: 5000,              // Maximum time each action, Ex. click(), fill(), textContent(), etc.; default is 0
     //navigationTimeout: 5000,            // Maximum time for navigation methods; default is 0 seconds
   },
