@@ -1,53 +1,50 @@
+/**
+* Import the necessary modules and configure environment variables for Playwright testing.
+* This configuration file sets up the test environment, including timeouts, reporters, and browser projects.
+* It also loads environment variables from a .env file based on the specified TEST_ENV variable.
+ */
 import { defineConfig, devices } from '@playwright/test';
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
 import dotenv from 'dotenv';
 import path from 'path';
 dotenv.config({ path: path.resolve(__dirname, process.env.TEST_ENV ? `.env.${process.env.TEST_ENV}` : '.env') });
 
 /**
- * See https://playwright.dev/docs/test-configuration.
+* Global configuration for Playwright tests, including timeouts, reporters, and browser projects.
+* The configuration also specifies the base URL for the application under test and enables trace collection on first retry.
  */
 export default defineConfig({
+  // Main configuration options for Playwright tests, including timeouts, reporters, and browser projects.
   timeout: 10000,                   // Test timeout for each test; default is 30 seconds / 30000 ms
   globalTimeout: 60000,            // Global timeout for the whole test suite; no default
 
   expect: {
     timeout: 5000,                  // Maximum time expect() should wait for the condition to be met; default is 5000 ms
   },
-  testDir: './tests',
-  //testMatch: [/\.spec\.ts/, /\.api\.ts/], // Ensures .api.ts files are detected
-  /* Run tests in files in parallel */
   fullyParallel: true,      // Run tests in files in parallel
-  //fullyParallel: false,     // Run tests in files sequentially
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 1,
-  /* Opt out of parallel tests on CI. */
-  //workers: process.env.CI ? 1 : undefined,      // Use 1 worker on CI, otherwise use the default number of workers
-  workers: process.env.CI ? 1 : 1,      // Use 1 worker on CI, otherwise use the default number of workers
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {
-    /* Base URL to use in actions like `await page.goto('')`. */
-    baseURL: process.env.URL,
+  retries: 1,           // Retry on CI only; default is 0
+  reporter: 'html',     // Use the HTML reporter to generate a report of the test results; default is 'list'
 
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
-    video: 'on'                         // Via CI Record video for each test; default is 'off'
-    //actionTimeout: 5000,              // Maximum time each action, Ex. click(), fill(), textContent(), etc.; default is 0
-    //navigationTimeout: 5000,            // Maximum time for navigation methods; default is 0 seconds
+  // Use the following options for the test environment, including base URL, trace collection, and video recording.
+  use: {
+    baseURL: process.env.URL,           // Base URL for the application under test; default is 'http://localhost:3000'
+    trace: 'on-first-retry',            // Collect trace when retrying the failed test; default is 'off'
+    video: 'off'                         // Via CI Record video for each test; default is 'off'
   },
 
-  /* Configure projects for major browsers */
+  /**
+  * Projects define the different browser configurations to run the tests against, including Chromium, Firefox, and WebKit.
+  * Each project specifies the browser name and the device configuration to use for testing.  
+   */
   projects: [
     {
+      name: 'page-object-tests',
+      testMatch: '*page-object.spec.ts' // Match test files for page object tests
+    },
+    {
       name: 'chromium',
+      timeout: 20000,                   // Test timeout for Chromium browser tests; default is 30000 ms
+      retries: 3,           // Retry on CI only for Chromium browser tests; default is 0
       use: { ...devices['Desktop Chrome'] },
     },
 
@@ -60,32 +57,5 @@ export default defineConfig({
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
   ],
-
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
 });
