@@ -40,19 +40,27 @@ test.describe('Form Layouts page', () => {
         await expect(usingTheGridEmailInput).toHaveValue(/test.com/)
     })
 
-    test('Radio Buttons', { tag: ['@smoke', '@radio'] }, async ({ page }) => {          // Use the @smoke tag to label this test for smoke testing
+    test('Radio Buttons', { tag: ['@smoke', '@radio'] }, async ({ page }) => { // Use the @smoke tag to label this test for smoke testing
         const usingTheGridForm = page.locator('nb-card', { hasText: "Using the Grid" })
 
-        await usingTheGridForm.getByLabel('Option 1').check({ force: true })       //Force check even if element is not visible/interactive
-        //await usingTheGridForm.getByRole('radio', { name: 'Option 1' }).check({force: true})
+        await usingTheGridForm.getByRole('radio', { name: 'Option 1' }).check({ force: true })
         const radioStatus = await usingTheGridForm.getByRole('radio', { name: 'Option 1' }).isChecked()
-        expect(radioStatus).toBeTruthy()        //1st way of assertion, obtaining the Status value and asserting
-        await expect(usingTheGridForm.getByRole('radio', { name: 'Option 1' })).toBeChecked()       //2nd way of assertion, directly asserting on the Locator
+        expect(radioStatus).toBeTruthy() // 1st way of assertion, obtaining the Status value and asserting
+
+        await expect(usingTheGridForm.getByRole('radio', { name: 'Option 1' })).toBeChecked() // 2nd way of assertion, directly asserting on the Locator
+        await expect(usingTheGridForm.getByRole('radio', { name: 'Option 2' })).not.toBeChecked() // 2nd way of assertion, directly asserting on the Locator
 
         await usingTheGridForm.getByRole('radio', { name: 'Option 2' }).check({ force: true })
-        expect(await usingTheGridForm.getByRole('radio', { name: 'Option 1' }).isChecked()).toBeFalsy()     //1st way of assertion, obtaining the Status value and asserting after checking Option 2
-        expect(await usingTheGridForm.getByRole('radio', { name: 'Option 2' }).isChecked()).toBeTruthy()        //2nd way of assertion, directly asserting on the Locator after checking Option 2
+        expect(await usingTheGridForm.getByRole('radio', { name: 'Option 1' }).isChecked()).toBeFalsy() // 1st way of assertion, obtaining the Status value and asserting after checking Option 2
+        await expect(usingTheGridForm.getByRole('radio', { name: 'Option 2' })).toBeChecked() // 2nd way of assertion, directly asserting on the Locator after checking Option 2
     })
+    // test('Radio Buttons-v2', { tag: ['@smoke', '@radio'] }, async ({ page }) => {          // Use the @smoke tag to label this test for smoke testing
+    //     const usingTheGridForm = page.locator('nb-card', { hasText: "Using the Grid" })
+
+    //     await usingTheGridForm.getByLabel('Option 2').check({ force: true })       //Force check even if element is not visible/interactive
+    //     await usingTheGridForm.getByRole('radio', { name: 'Option 1' }).check({ force: true })       //Force check even if element is not visible/interactive
+    //     await expect(usingTheGridForm).toHaveScreenshot({ maxDiffPixels: 250 })        //Take a screenshot of the form and compare it to the baseline image, allowing for a maximum difference of 250 pixels
+    // })
 })
 
 test('Checkboxes', async ({ page }) => {
