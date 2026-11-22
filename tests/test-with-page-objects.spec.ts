@@ -11,8 +11,7 @@ import { faker } from '@faker-js/faker'
 * Set up the test environment before each test case.
  */
 test.beforeEach(async ({ page }) => {
-    await page.goto('https://playground.bondaracademy.com/')            //Default URL for the Bondar Academy Playground Application > Form Layouts page
-
+    await page.goto('/')
 })
 
 /**
@@ -36,11 +35,11 @@ test('Parameterized Page Object Methods', async ({ page }) => {
     const randomEmail = faker.internet.email({ provider: 'test.com' })
 
     await pom.navigateTo.formLayoutsPage()
-    await pom.formLayoutsPage.submitUsingTheGridForm(randomEmail, 'Welcome', 'Option 2')
+    await pom.formLayoutsPage.submitUsingTheGridForm(process.env.TEST_USER_EMAIL!, process.env.TEST_USER_PASSWORD!, 'Option 2')
     await page.waitForTimeout(500) // Wait for 500 milliseconds to ensure the form submission is processed
     await page.screenshot({ path: 'screenshots/form-layouts.png' })  // Option 1: Capture a screenshot of the Form Layouts page after form submission
     const formLayoutPageBuffer = await page.screenshot({ path: 'screenshots/form-layouts.png' })  // Option 2: Log the screenshot buffer to the console for debugging purposes
-    console.log(formLayoutPageBuffer.toString('base64'))        // Log the screenshot buffer to the console in base64 format for debugging purposes
+    //console.log(formLayoutPageBuffer.toString('base64'))        // Log the screenshot buffer to the console in base64 format for debugging purposes
     
     await pom.formLayoutsPage.submitInlineForm(randomFullName, randomEmail, false)
     await page.locator('nb-card', { hasText: "Inline form" }).screenshot({ path: 'screenshots/inlineForm.png' })      // Capture a screenshot of the Inline form after submission
