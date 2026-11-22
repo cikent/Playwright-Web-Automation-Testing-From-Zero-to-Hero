@@ -37,6 +37,12 @@ export default defineConfig({
   * Each project specifies the browser name and the device configuration to use for testing.  
    */
   projects: [
+    // {
+    //   name: 'mobile-test',
+    //   use:{
+    //     ...devices['iPhone 17 Pro'],   // Use the iPhone 17 Pro device configuration for mobile tests
+    //   }
+    // },
     {
       name: 'page-object-tests',
       testMatch: '*page-object.spec.ts' // Match test files for page object tests
