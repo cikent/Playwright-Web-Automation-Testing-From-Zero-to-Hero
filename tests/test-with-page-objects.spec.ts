@@ -9,7 +9,7 @@ import { faker } from '@faker-js/faker'
 /**
 * Navigate to the Form Layouts page and verify the navigation.
  */
-test('Navigate to Form Layouts page', async ({ pom }) => {
+test('Navigate to Form Layouts page', {tag: '@smoke'}, async ({ pom }) => {     // Use the Page Object Model (POM) to navigate to the Form Layouts page and label it with the Tag @smoke for smoke testing.
     await pom.navigateTo.formLayoutsPage()
     await pom.navigateTo.datePickerPage()
     await pom.navigateTo.toasterPage()

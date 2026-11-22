@@ -15,21 +15,21 @@ test.beforeEach(async ({ page }) => {
 })
 
 test.describe('Form Layouts page', () => {
-    test.describe.configure({retries: 2})        //Configure the test suite to retry failed tests 2 times
-    
+    test.describe.configure({ retries: 2 })        //Configure the test suite to retry failed tests 2 times
+
     test.beforeEach(async ({ page }) => {
         await page.getByText('Forms').click()
         await page.getByText('Form Layouts').click()
     })
 
-    test('Input Fields', async ({ page }, testInfo) => {
-        if(testInfo.retry) {        //Check if the test is being retried
+    test('Input Fields', { tag: ['@smoke', '@fields'] }, async ({ page }, testInfo) => {
+        if (testInfo.retry) {        //Check if the test is being retried
             //clean test data or reset the state of the application before retrying the test
         }
         const usingTheGridEmailInput = page.locator('nb-card', { hasText: "Using the Grid" }).getByRole('textbox', { name: 'Email' })        //Get the Email input field by its role and name value within the "Using the Grid" form
         await usingTheGridEmailInput.fill('test@test.com')      //Fill the email input field
         await usingTheGridEmailInput.clear()        //Clear the email input field
-        await usingTheGridEmailInput.pressSequentially('test2@test.com', {delay: 500})      //Pass 2nd Argument to delay inputs in ms
+        await usingTheGridEmailInput.pressSequentially('test2@test.com', { delay: 500 })      //Pass 2nd Argument to delay inputs in ms
 
         //Generic Assertion
         const inputValue = await usingTheGridEmailInput.inputValue()
@@ -40,10 +40,10 @@ test.describe('Form Layouts page', () => {
         await expect(usingTheGridEmailInput).toHaveValue(/test.com/)
     })
 
-    test('Radio Buttons', async ({ page }) => {
+    test('Radio Buttons', { tag: ['@smoke', '@radio'] }, async ({ page }) => {          // Use the @smoke tag to label this test for smoke testing
         const usingTheGridForm = page.locator('nb-card', { hasText: "Using the Grid" })
 
-        await usingTheGridForm.getByLabel('Option 1').check({force: true})       //Force check even if element is not visible/interactive
+        await usingTheGridForm.getByLabel('Option 1').check({ force: true })       //Force check even if element is not visible/interactive
         //await usingTheGridForm.getByRole('radio', { name: 'Option 1' }).check({force: true})
         const radioStatus = await usingTheGridForm.getByRole('radio', { name: 'Option 1' }).isChecked()
         expect(radioStatus).toBeTruthy()        //1st way of assertion, obtaining the Status value and asserting
@@ -59,21 +59,21 @@ test('Checkboxes', async ({ page }) => {
     await page.getByText('Modal & Overlays').click()                                        //Navigate to the Modal & Overlays page via the Sidebar
     await page.getByText('Toastr').click()                                                  //Select Toastr from the Modal & Overlays submenu 
 
-    await page.getByRole('checkbox', { name: 'Hide on click'}).click({force: true})         //Click the checkbox Element with the name value; enable force: true because element is not visible/interactive
+    await page.getByRole('checkbox', { name: 'Hide on click' }).click({ force: true })         //Click the checkbox Element with the name value; enable force: true because element is not visible/interactive
     await page.getByRole('checkbox', { name: 'Hide on click' }).check({ force: true })      //Check the checkbox Element with the name values Status; enable force: true since element is not visible/interactive
     await page.getByRole('checkbox', { name: 'Hide on click' }).uncheck({ force: true })      //Uncheck the checkbox Element with the name values Status; enable force: true since element is not visible/interactive
     await page.getByRole('checkbox', { name: 'Prevent arising of duplicate toast' }).check({ force: true })      //Check the checkbox Element with the name values Status; enable force: true since element is not visible/interactive
 
     const allBoxes = page.getByRole('checkbox')                             //Get all checkbox elements on the page      
-    for(const box of await allBoxes.all()){                                 //Use JSON syntax to iterate through each checkbox element
-        await box.check({force: true})                                      //Check each checkbox; enable force: true since element is not visible/interactive  
+    for (const box of await allBoxes.all()) {                                 //Use JSON syntax to iterate through each checkbox element
+        await box.check({ force: true })                                      //Check each checkbox; enable force: true since element is not visible/interactive  
         expect(await box.isChecked()).toBeTruthy()                          //Assert that each checkbox is checked
         await box.uncheck({ force: true })                                  //Uncheck each checkbox; enable force: true since element is not visible/interactive  
         expect(await box.isChecked()).toBeFalsy()                          //Assert that each checkbox is unchecked 
-    }  
+    }
 })
 
-test ('Lists and Dropdowns', async ({ page }) => {
+test('Lists and Dropdowns', async ({ page }) => {
     const dropDownMenu = page.locator('ngx-header nb-select')
     await dropDownMenu.click()
 
@@ -88,17 +88,17 @@ test ('Lists and Dropdowns', async ({ page }) => {
     await expect(header).toHaveCSS('background-color', 'rgb(50, 50, 89)')   //Assert the Header element has the expected background color
 
     const colors: Record<string, string> = { //Create an Object and define the Types for the key and value using Record<string, string>
-        "Light":     'rgb(255, 255, 255)',
-        "Dark":      'rgb(34, 43, 69)',
-        "Cosmic":    'rgb(50, 50, 89)',
+        "Light": 'rgb(255, 255, 255)',
+        "Dark": 'rgb(34, 43, 69)',
+        "Cosmic": 'rgb(50, 50, 89)',
         "Corporate": 'rgb(255, 255, 255)',
     }
 
     await dropDownMenu.click()        //Click the dropdown menu to reopen it for the next iteration
-    for(const color in colors){       //Iterate through the Object to get each key value                            
-        await optionList.filter({ hasText: color}).click()        //Iterate through the Object to filter the List and click each theme option
+    for (const color in colors) {       //Iterate through the Object to get each key value                            
+        await optionList.filter({ hasText: color }).click()        //Iterate through the Object to filter the List and click each theme option
         await expect(header).toHaveCSS('background-color', colors[color])
-        if(color != "Corporate")    //Collapse the dropdown menu after each iteration except for the last one since the dropdown will automatically collapse after clicking the last option
+        if (color != "Corporate")    //Collapse the dropdown menu after each iteration except for the last one since the dropdown will automatically collapse after clicking the last option
             await dropDownMenu.click()        //Click the dropdown menu to reopen it for the next iteration
     }
 })
@@ -106,9 +106,9 @@ test ('Lists and Dropdowns', async ({ page }) => {
 test('Tooltips', async ({ page }) => {
     await page.getByText('Modal & Overlays').click()                                        //Navigate to the Modal & Overlays page via the Sidebar
     await page.getByText('Tooltip').click()                                                  //Select Tooltip from the Modal & Overlays submenu 
-   
+
     const toolTipCard = page.locator('nb-card', { hasText: "Tooltip Placements" })           //Select the Card with the text value "Tooltip Placements"
-    await toolTipCard.getByRole('button', {name: "Top"}).hover()        //Hover over the button with the name value "Top"
+    await toolTipCard.getByRole('button', { name: "Top" }).hover()        //Hover over the button with the name value "Top"
 
     page.getByRole('tooltip')        //If you have a role tooltip created in your application, you can use the getByRole method to locate it. This method allows you to find elements based on their ARIA roles, which can be useful for testing accessibility features.
     const tooltip = await page.locator('nb-tooltip').textContent()        //Get the text content of the tooltip element
@@ -132,7 +132,7 @@ test('Web Tables', async ({ page }) => {
     await page.getByText('Smart Table').click()                                          //Select Smart Table from the Tables & Data submenu
 
     //1 Get the row by any Text in the row
-    const targetRow = page.getByRole('row', {name: "twitter@outlook.com"})
+    const targetRow = page.getByRole('row', { name: "twitter@outlook.com" })
     await targetRow.locator('.nb-edit').click()        //Click the Edit button in the row with the text value
     await page.locator('input-editor').getByPlaceholder('Age').clear()        //Clear the Age input field in the row with the text value
     await page.locator('input-editor').getByPlaceholder('Age').fill('35')        //Fill the Age input field in the row with the text value "twitter@outlook.com"
@@ -140,24 +140,24 @@ test('Web Tables', async ({ page }) => {
 
     //2 Get the row based on the value in the specific column value
     await page.locator('.ng2-smart-pagination-nav').getByText('2').click()        //Click the page number 2 in the pagination navigation
-    const targetRowById = page.getByRole('row', {name: "11"}).filter({has: page.locator('td').nth(1).getByText('11')})        //Get the row with the ID value "11"    
+    const targetRowById = page.getByRole('row', { name: "11" }).filter({ has: page.locator('td').nth(1).getByText('11') })        //Get the row with the ID value "11"    
     await targetRowById.locator('.nb-edit').click()        //Click the Edit button in the row with the ID value "11"
     await page.locator('input-editor').getByPlaceholder('E-mail').clear()        //Clear the Email input field in the row with the ID value "11"
     await page.locator('input-editor').getByPlaceholder('E-mail').fill('test@test.com')        //Fill the Email input field in the row with the ID value "11"
     await page.locator('.nb-checkmark').click()        //Click the Checkmark button in the row with the text value
     await expect(targetRowById.locator('td').nth(5)).toHaveText('test@test.com')        //Assert that the Email column in the row with the ID value "11" has the expected text value
-    
+
     //3 Loop through table rows to find a specific value in a specific column and perform an action
 
     const ages = ["20", "30", "40", "200"]        //Define an array of Age values to search for in the table
 
-    for ( let age of ages) {        //Iterate through the array of Age values
+    for (let age of ages) {        //Iterate through the array of Age values
         await page.getByPlaceholder('Age').fill(age)        //Fill the Age input field in the table header with the current Age value
 
-        if(age == "200"){
+        if (age == "200") {
             await expect(page.locator('tbody')).toContainText('No data found')          //Assert that the table body contains the text value "No data found" when searching for an Age value that does not exist in the table
         } else {
-            await expect (page.locator('tbody tr').first().locator('td').last()).toHaveText(age)        //Assert that the Age column in the first row of the table has the expected text value
+            await expect(page.locator('tbody tr').first().locator('td').last()).toHaveText(age)        //Assert that the Age column in the first row of the table has the expected text value
             const allTableRows = await page.locator('tbody tr').all()    //Get all the table rows in the table body
             for (let row of allTableRows) {        //Iterate through all the table rows
                 await expect(row.locator('td').last()).toHaveText(age)        //Assert that the Age column in each row has the expected text value
@@ -166,11 +166,11 @@ test('Web Tables', async ({ page }) => {
     }
 })
 
-test ('Datepicker', async ({ page }) => {               //Navigate to the Datepicker page via the Sidebar
+test('Datepicker', async ({ page }) => {               //Navigate to the Datepicker page via the Sidebar
     await page.getByText('Forms').click()               //Click the Forms menu item in the Sidebar
     await page.getByText('Datepicker').click()          //Click the Datepicker submenu item in the Sidebar
 
-    const calendarInputField  = page.getByPlaceholder('Form Picker')        //Get the Calendar input field by its placeholder value
+    const calendarInputField = page.getByPlaceholder('Form Picker')        //Get the Calendar input field by its placeholder value
     await calendarInputField.click()        //Click the Calendar input field to open the calendar widget
 
     const date = new Date();
@@ -184,18 +184,18 @@ test ('Datepicker', async ({ page }) => {               //Navigate to the Datepi
 
     let currentMonthAndYear = await page.locator('nb-calendar-view-mode').textContent()     //Get the current month and year displayed in the calendar widget
     const expectedMonthAndYear = `${expectedMonthLong} ${expectedYear}`                     //Format the expected month and year as a string
-    while(!currentMonthAndYear?.includes(expectedMonthAndYear)) {                           //While the current month and year displayed in the calendar widget does not include the expected month and year, click the next month button
+    while (!currentMonthAndYear?.includes(expectedMonthAndYear)) {                           //While the current month and year displayed in the calendar widget does not include the expected month and year, click the next month button
         await page.locator('.next-month').click()           //Click the next month button in the calendar widget
         currentMonthAndYear = await page.locator('nb-calendar-view-mode').textContent()     //Get the current month and year displayed in the calendar widget after clicking the next month button
     }
 
 
-    await page.locator('.day-cell:not(.bounding-month)').getByText(expectedDay, {exact: true}).click()          //Get the day cell with the exact text value "2" that is not in the bounding month and click it
+    await page.locator('.day-cell:not(.bounding-month)').getByText(expectedDay, { exact: true }).click()          //Get the day cell with the exact text value "2" that is not in the bounding month and click it
     await expect(calendarInputField).toHaveValue(expectedDate)     //Assert that the Calendar input field has the expected value after selecting the date
 
 })
 
-test ('Sliders', async ({ page }) => {                     //Navigate to the Sliders page via the Sidebar
+test('Sliders', async ({ page }) => {                     //Navigate to the Sliders page via the Sidebar
     //1 Setting the Attribute values of the Slider element to move it to the right position
     // const tempGuage = page.locator('[tabtitle="Temperature"] ngx-temperature-dragger circle')   //Get the circle element of the Temperature slider
     // await tempGuage.evaluate( element => {                  //Use the evaluate method to execute JavaScript code in the context of the page
@@ -204,7 +204,7 @@ test ('Sliders', async ({ page }) => {                     //Navigate to the Sli
     // })
     // await tempGuage.click()        //Click the circle element of the Temperature slider to move it to the right on-screen position
 
-   //2 Setting via Mouse Movement
+    //2 Setting via Mouse Movement
     const tempBox = page.locator('[tabtitle="Temperature"] ngx-temperature-dragger')   //Get the UI element box of the Temperature slider section
     await tempBox.scrollIntoViewIfNeeded()                                             //Scroll the Temperature slider into view if it is not already in view
 
@@ -216,20 +216,20 @@ test ('Sliders', async ({ page }) => {                     //Navigate to the Sli
     //Use the mouse to move to the center of the box element, press down, move to the right by 100 pixels, and release the mouse button
     await page.mouse.move(x, y)                 //Move the mouse to the center of the box element
     await page.mouse.down()                     //Press the mouse button down (left-click) to start dragging the slider
-    await page.mouse.move(x+100, y)             //Move the mouse to the right by 100 pixels to drag the slider
-    await page.mouse.move(x+100, y+100)         //Move the mouse to the right and down by 100 pixels to drag the slider more
+    await page.mouse.move(x + 100, y)             //Move the mouse to the right by 100 pixels to drag the slider
+    await page.mouse.move(x + 100, y + 100)         //Move the mouse to the right and down by 100 pixels to drag the slider more
     await page.mouse.up()                       //Release the mouse button to stop dragging the slider
     await expect(tempBox).toContainText('30')  //Assert that the Temperature slider has the expected value after dragging
-    
+
 })
 
-test ('iFrames', async ({ page }) => {                                                     //Navigate to the iFrames page via the Sidebar
+test('iFrames', async ({ page }) => {                                                     //Navigate to the iFrames page via the Sidebar
     await page.getByText('Modal & Overlays').click()                                       //Click the Modal & Overlays menu item in the Sidebar
     await page.getByText('Dialog').click()                                                 //Click the iFrame submenu item in the Sidebar
 
     const frameLocator = page.frameLocator('[data-cy="esc-close-iframe"]')                 //Get the iFrame element by its data-cy attribute value
 
-    await frameLocator.getByRole('button', {name: 'Open Dialog with esc close'}).click()   //Click the button to open the iFrame dialog box
+    await frameLocator.getByRole('button', { name: 'Open Dialog with esc close' }).click()   //Click the button to open the iFrame dialog box
 })
 
 test('Drag & Drop', async ({ page }) => {                                                  //Navigate to the iFrames page via the Sidebar
