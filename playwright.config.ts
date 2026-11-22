@@ -23,7 +23,8 @@ export default defineConfig({
   },
   fullyParallel: true,      // Run tests in files in parallel
   retries: 1,           // Retry on CI only; default is 0
-  reporter: 'html',     // Use the HTML reporter to generate a report of the test results; default is 'list'
+  reporter: 'html',
+  //reporter: [['line'], ['allure-playwright']],      // Use the 'line' reporter for console output and the 'allure-playwright' reporter for generating Allure reports
 
   // Use the following options for the test environment, including base URL, trace collection, and video recording.
   use: {
