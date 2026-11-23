@@ -1,8 +1,9 @@
 # Playwright-Web-Automation-Testing-From-Zero-to-Hero
 
-* Repo for Course: Playwright: Web Automation Testing From Zero to Hero
+* Repo for Course: [Playwright: Web Automation Testing From Zero to Hero](https://www.udemy.com/course/playwright-from-zero-to-hero/?couponCode=CP261123G1)
 * Creator: Artem Bondar
-* Source: [Github bondar-artem / pw-practice-app](https://github.com/bondar-artem/pw-practice-app)
+* Locally Hosted Source: Via [Github bondar-artem / pw-practice-app](https://github.com/bondar-artem/pw-practice-app)
+* Web Hosted Source: Via [Web Playground Bondar Academy](https://playground.bondaracademy.com/pages/iot-dashboard) & [API Conduit Bondar Academy](https://conduit.bondaracademy.com/)
 
 ## Test App Setup via 'pw-practice-app' folder
 

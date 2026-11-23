@@ -51,7 +51,7 @@ export default defineConfig({
     {
       name: 'chromium',
       timeout: 20000,                   // Test timeout for Chromium browser tests; default is 30000 ms
-      retries: 3,           // Retry on CI only for Chromium browser tests; default is 0
+      retries: 3,                       // Retry on CI only for Chromium browser tests; default is 0
       use: { ...devices['Desktop Chrome'] },
     },
 
